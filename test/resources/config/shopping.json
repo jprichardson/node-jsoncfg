@@ -1,0 +1,5 @@
+{
+  "comment": "THIS IS ONLY USED FOR TESTS",
+    "server": "localhost",
+    "timeout": "5s"
+}

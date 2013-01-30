@@ -1,0 +1,5 @@
+/*This isn't valid JSON, it shouldn't be loaded*/
+{
+  'notvalid': "hi"
+  no: "reallynotvalid"
+}
