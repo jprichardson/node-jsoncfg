@@ -9,7 +9,7 @@
     "type": "git",
     "url": "git@github.com:jprichardson/node-jsoncfg.git"
   },
-  "keywords": [],
+  "keywords": ["json", "dir", "directory", "cfg", "config", "configuration", "file", "files"],
   "author": "JP Richardson <jprichardson@gmail.com>",
   "licenses": [
     {
@@ -18,7 +18,7 @@
     }
   ],
   "dependencies": {
-    "field": "0.0.1"
+    "field": "0.0.x"
   },
   "devDependencies": {
     "testutil": "~0.4.0",
