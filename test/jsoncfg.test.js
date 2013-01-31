@@ -15,7 +15,7 @@ describe('jsoncfg', function() {
     })
   })
 
-  describe('+ loadFiles', function() {
+  describe('+ loadFiles()', function() {
     it('should load the json files', function(done) {
       jsoncfg.loadFiles(TEST_DIR, function(err, files, errInfo) {
         T (err) //problem parsing malformed.json
@@ -35,7 +35,7 @@ describe('jsoncfg', function() {
     })
   })
 
-  describe('+ loadFilesSync', function() {
+  describe('+ loadFilesSync()', function() {
     it('should load the json files', function() {
       var files = jsoncfg.loadFilesSync(TEST_DIR)
         
@@ -53,7 +53,7 @@ describe('jsoncfg', function() {
     })
   })
 
-  describe('- get', function() {
+  describe('- get()', function() {
     describe('> when field path is specified', function() {
       it('should retrieve the value', function(done) {
         var files = jsoncfg.loadFilesSync(TEST_DIR)
@@ -74,7 +74,7 @@ describe('jsoncfg', function() {
     })
   })
 
-  describe('- set', function() {
+  describe('- set()', function() {
     describe('> when a a field path is specified', function() {
       it('should set the value', function() {
         var files = jsoncfg.loadFilesSync(TEST_DIR)
@@ -93,6 +93,19 @@ describe('jsoncfg', function() {
         EQ (files.database.production.name.something.special, 'superman')
       })
 
+    })
+  })
+
+  describe('- getPath()', function() {
+    it('should return the full path that the file was load from', function(done) {
+      var files = jsoncfg.loadFilesSync(TEST_DIR)
+
+      EQ (files.database.getPath(), path.join(TEST_DIR, 'database.json'))
+
+      jsoncfg.loadFiles(TEST_DIR, function(err, files) {
+        EQ (files.database.getPath(), path.join(TEST_DIR, 'database.json'))
+        done()
+      })
     })
   })
 })
