@@ -33,6 +33,23 @@ describe('jsoncfg', function() {
         done()
       })
     })
+
+    describe('> when a cache is present', function() {
+      it('should load the files except the cached', function(done) {
+        var files = jsoncfg.loadFilesSync(TEST_DIR)
+
+        EQ (files.database.production.host, 'myserver.com')
+        files.database.production.host = 'yourserver.com'
+        var dbFile = path.join(TEST_DIR, 'database.json')
+        var cache = {}
+        cache[dbFile] = files.database;
+        
+        jsoncfg.loadFiles(TEST_DIR, cache, function(err, files2) {
+          EQ (files2.database.production.host, 'yourserver.com')
+          done()
+        }) 
+      })
+    })
   })
 
   describe('+ loadFilesSync()', function() {
@@ -50,6 +67,23 @@ describe('jsoncfg', function() {
       T (files.weird_name3)
 
       EQ (files.database.production.port, 27017)
+    })
+
+    describe('> when a cache is present', function() {
+      it('should load the files when a cache is present', function() {
+        var files = jsoncfg.loadFilesSync(TEST_DIR)
+
+        EQ (files.database.production.host, 'myserver.com')
+        files.database.production.host = 'yourserver.com'
+
+        var dbFile = path.join(TEST_DIR, 'database.json')
+        var cache = {}
+        cache[dbFile] = files.database;
+        var files2 = jsoncfg.loadFilesSync(TEST_DIR, cache)
+
+        EQ (files2.database.production.host, 'yourserver.com')        
+
+      })
     })
   })
 

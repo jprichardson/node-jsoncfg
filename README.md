@@ -84,11 +84,11 @@ jsoncfg.loadFiles('./config', function(err, files, errInfo) {
 
 ```
 
-### loadFiles(dir, callback)
+### loadFiles(dir, [cache], callback)
 
 **TODO**
 
-### loadFilesSync(dir)
+### loadFilesSync(dir, [cache])
 
 **TODO**
 
