@@ -1,8 +1,11 @@
+"use strict"
+
 var jsoncfg = require('../lib/jsoncfg')
   , testutil = require('testutil')
   , fs = require('fs-extra')
   , path = require('path')
   , P = require('autoresolve')
+  , ms = require('ms')
 
 var TEST_DIR = ''
 
@@ -44,8 +47,26 @@ describe('jsoncfg', function() {
         var cache = {}
         cache[dbFile] = files.database;
         
-        jsoncfg.loadFiles(TEST_DIR, cache, function(err, files2) {
+        var options = {cache: cache}
+        jsoncfg.loadFiles(TEST_DIR, options, function(err, files2) {
           EQ (files2.database.production.host, 'yourserver.com')
+          done()
+        }) 
+      })
+    })
+
+    describe('> when a json transformer function is present', function() {
+      it('should load the files and parse the json accordingly', function(done) {
+        function parser (key, value) {
+          if (typeof value !== 'string') return value;
+
+          return ms(value) ? ms(value) : value
+        }
+
+        var opts = {transformer: parser}
+        
+        jsoncfg.loadFiles(TEST_DIR, opts, function(err, files) {
+          EQ (files.shopping.timeout, 5000) //convert 5s to 5000
           done()
         }) 
       })
@@ -79,10 +100,26 @@ describe('jsoncfg', function() {
         var dbFile = path.join(TEST_DIR, 'database.json')
         var cache = {}
         cache[dbFile] = files.database;
-        var files2 = jsoncfg.loadFilesSync(TEST_DIR, cache)
+
+        var options = {cache: cache}
+        var files2 = jsoncfg.loadFilesSync(TEST_DIR, options)
 
         EQ (files2.database.production.host, 'yourserver.com')        
 
+      })
+    })
+
+    describe('> when a json transformer function is present', function() {
+      it('should load the files and parse the json files accordingly', function() {
+        function parser (key, value) {
+          if (typeof value !== 'string') return value;
+          return ms(value) ? ms(value) : value
+        }
+
+        var opts = {transformer: parser}
+        
+        var files = jsoncfg.loadFilesSync(TEST_DIR, opts)
+        EQ (files.shopping.timeout, 5000) //convert 5s to 5000
       })
     })
   })
@@ -91,8 +128,6 @@ describe('jsoncfg', function() {
     describe('> when field path is specified', function() {
       it('should retrieve the value', function(done) {
         var files = jsoncfg.loadFilesSync(TEST_DIR)
-
-        console.log('GS: ' + typeof files.database.get)
 
         EQ (files.database.get('production.host'), 'myserver.com')
         EQ (files.database.get('asdfasdfasdfa'), undefined) //doesn't exist

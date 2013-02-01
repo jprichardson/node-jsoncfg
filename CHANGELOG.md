@@ -1,3 +1,7 @@
+0.1.0 / 2013-02-01
+------------------
+- move cache param to options, add json transformer
+
 0.0.3 / 2013-01-31
 ------------------
 - add cache param

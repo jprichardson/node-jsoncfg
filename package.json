@@ -1,6 +1,6 @@
 {
   "name": "jsoncfg",
-  "version": "0.0.3",
+  "version": "0.1.0",
   "description": "Easily read JSON files from a directory. Great for configuration.",
   "homepage": [
     ""
@@ -9,7 +9,16 @@
     "type": "git",
     "url": "git@github.com:jprichardson/node-jsoncfg.git"
   },
-  "keywords": ["json", "dir", "directory", "cfg", "config", "configuration", "file", "files"],
+  "keywords": [
+    "json",
+    "dir",
+    "directory",
+    "cfg",
+    "config",
+    "configuration",
+    "file",
+    "files"
+  ],
   "author": "JP Richardson <jprichardson@gmail.com>",
   "licenses": [
     {
@@ -24,7 +33,8 @@
     "testutil": "~0.4.0",
     "fs-extra": "~0.4.0",
     "autoresolve": "0.0.3",
-    "mocha": "*"
+    "mocha": "*",
+    "ms": "~0.5.0"
   },
   "main": "./lib/jsoncfg.js",
   "scripts": {
