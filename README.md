@@ -77,6 +77,9 @@ jsoncfg.loadFiles('./config', function(err, files, errInfo) {
   //use ':' if you prefer
   host = dbCfg.get('production:host')
 
+  //or treat everything as a field, including the configuration file
+  host = files.get('database:production.host')
+
   //you can also create fields
   dbCfg.set('production.location.country', 'US') //returns old value if overwriting or value, or `undefined` if new
   console.log(dbCfg.production.location.country) //'US'

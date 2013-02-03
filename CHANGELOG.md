@@ -1,3 +1,7 @@
+0.1.1 / 2013-02-03
+------------------
+- add get method to return object
+
 0.1.0 / 2013-02-01
 ------------------
 - move cache param to options, add json transformer

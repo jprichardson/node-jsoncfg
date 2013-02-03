@@ -136,7 +136,19 @@ describe('jsoncfg', function() {
 
         //try async
         jsoncfg.loadFiles(TEST_DIR, function(err, data) {
-          EQ (files.database.get('production.host'), 'myserver.com')
+          EQ (data.database.get('production.host'), 'myserver.com')
+          done()
+        })
+      })
+    })
+
+    describe('> when called on the jsoncfg object', function() {
+      it('should return the value from the file and field', function(done) {
+        var files = jsoncfg.loadFilesSync(TEST_DIR)
+        EQ (files.get('database:production.host'), 'myserver.com')
+
+        jsoncfg.loadFiles(TEST_DIR, function(err, data) {
+          EQ (data.get('database:production.host'), 'myserver.com')
           done()
         })
       })
