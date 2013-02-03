@@ -1,3 +1,7 @@
+0.1.2 / 2013-02-03
+------------------
+- still returns object if input directory does not exist
+
 0.1.1 / 2013-02-03
 ------------------
 - add get method to return object

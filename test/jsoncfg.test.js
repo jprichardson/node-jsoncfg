@@ -71,6 +71,20 @@ describe('jsoncfg', function() {
         }) 
       })
     })
+
+    describe('> when the directory does not exist', function() {
+      it('should still return an object and errors', function(done) {
+        jsoncfg.loadFiles('/this/directory/does/not/exist', function(err, files, errInfo) {
+          T (err)
+          T (files)
+          F (errInfo)
+
+          EQ (files.get('config:production.port'), undefined)
+
+          done()
+        })
+      })
+    })
   })
 
   describe('+ loadFilesSync()', function() {
@@ -106,6 +120,15 @@ describe('jsoncfg', function() {
 
         EQ (files2.database.production.host, 'yourserver.com')        
 
+      })
+    })
+
+    describe('> when the directory does not exist', function() {
+      it('should still return an object and errors', function() {
+        var files = jsoncfg.loadFilesSync('/this/directory/does/not/exist') 
+        EQ (Object.keys(files.errors).length, 1)
+
+        EQ (files.get('config:production.port'), undefined)
       })
     })
 
