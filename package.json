@@ -1,6 +1,6 @@
 {
   "name": "jsoncfg",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Easily read JSON files from a directory. Great for configuration.",
   "homepage": [
     ""
